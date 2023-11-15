@@ -27,12 +27,16 @@ const GuideListItemContainer = styled.div`
   border-bottom: 3px solid black;
 
   display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ContentsContainer = styled.div`
+  display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: flex-start;
 `;
-
-const ContentsContainer = styled.div``;
 
 const Title = styled.div`
   margin-top: 2vh;

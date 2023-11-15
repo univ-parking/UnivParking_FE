@@ -12,7 +12,6 @@ export interface GuideData {
 }
 
 const settings = {
-  arrows: true,
   dots: true,
   draggable: true,
   adaptiveHeight: true,
@@ -20,7 +19,8 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
   speed: 500,
-  cssEase: "linear",
+  centerMode: true,
+  centerPadding: "2rem",
   responsive: [
     {
       breakpoint: 480,
