@@ -1,15 +1,33 @@
 import styled from "styled-components";
 import UpperMenu from "./UpperMenu";
 import Guide from "./Guide";
+import { useState } from "react";
+import AboutTeamModal from "../components/AboutTeamModal";
+
+interface Data {
+  title?: string;
+  nameTag?: React.ReactNode;
+  contents?: React.ReactNode;
+}
+
+const testValue = {
+  title: "팀 소개",
+  contents: <p>차대의 팀 소개입니다.</p>,
+};
 
 const AboutTeam = () => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [value, setValue] = useState<Data>();
   return (
     <AboutTeamContainer>
       <AboutTeamHeader>
         <h1>차대의 이야기</h1>
       </AboutTeamHeader>
-      <UpperMenu />
+      <UpperMenu setModalOpen={setModalOpen} />
       <Guide />
+      {modalOpen && (
+        <AboutTeamModal setModalOpen={setModalOpen} data={testValue} />
+      )}
     </AboutTeamContainer>
   );
 };

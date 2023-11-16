@@ -1,16 +1,22 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 const StartAnimation = () => {
   return (
     <StartAnimationContainer>
       <RoadBackground>
         <ButtonContainer>
-          <Button color={"#D8ECFE"}>
-            <p>차대 시연하기</p>
-          </Button>
-          <Button color={"#BEEFE5"}>
-            <p>차대의 이야기</p>
-          </Button>
+          <Link href={"/"}>
+            <Button color={"#D8ECFE"}>
+              <p>차대 시연하기</p>
+            </Button>
+          </Link>
+
+          <Link href={"/aboutTeam"}>
+            <Button color={"#BEEFE5"}>
+              <p>차대의 이야기</p>
+            </Button>
+          </Link>
         </ButtonContainer>
       </RoadBackground>
     </StartAnimationContainer>

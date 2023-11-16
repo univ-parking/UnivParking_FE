@@ -3,13 +3,20 @@ import MenuListItem from "../components/MenuListItem";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useEffect, useState } from "react";
+
+interface Props {
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 const settings = {
+  dots: true,
   draggable: false,
   adaptiveHeight: true,
-  slidesToShow: 3,
+  slidesToShow: 4,
   slidesToScroll: 1,
-  speed: 2000,
+  infinite: false,
+  speed: 500,
   cssEase: "linear",
   responsive: [
     {
@@ -45,12 +52,17 @@ const MENU_DATA_ARRAY = [
   },
 ];
 
-const UpperMenu = () => {
+const UpperMenu = ({ setModalOpen }: Props) => {
   return (
     <SliderContainer>
       <Slider {...settings}>
         {MENU_DATA_ARRAY.map((items, index) => (
-          <MenuListItem key={index} title={items.title} value={items.value} />
+          <MenuListItem
+            key={index}
+            title={items.title}
+            value={items.value}
+            setModalOpen={setModalOpen}
+          />
         ))}
       </Slider>
     </SliderContainer>
@@ -60,7 +72,6 @@ const UpperMenu = () => {
 const SliderContainer = styled.div`
   width: 100%;
   margin-top: 2vh;
-  margin-left: 10vw;
 `;
 
 export default UpperMenu;

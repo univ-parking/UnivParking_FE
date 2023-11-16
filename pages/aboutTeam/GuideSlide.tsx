@@ -15,12 +15,14 @@ const settings = {
   dots: true,
   draggable: true,
   adaptiveHeight: true,
-  infinite: false,
+  infinite: true,
   slidesToShow: 1,
   slidesToScroll: 1,
   speed: 500,
   centerMode: true,
   centerPadding: "2rem",
+  autoplay: true,
+  autoplaySpeed: 3000,
   responsive: [
     {
       breakpoint: 480,
