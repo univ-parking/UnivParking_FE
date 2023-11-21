@@ -6,7 +6,7 @@ const StartAnimation = () => {
     <StartAnimationContainer>
       <RoadBackground>
         <ButtonContainer>
-          <Link href={"/"}>
+          <Link href={"/parkingSlot"}>
             <Button color={"#D8ECFE"}>
               <p>차대 시연하기</p>
             </Button>
