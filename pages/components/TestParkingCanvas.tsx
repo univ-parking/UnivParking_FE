@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { carPosition } from "../testParkingSlot/data";
 import styled from "styled-components";
 
 interface ParkingData {
@@ -13,52 +14,7 @@ interface IsParking {
   disable: boolean;
 }
 
-const carPosition: IsParking[] = [
-  {
-    id: 0,
-    carX: 132,
-    carY: 155,
-    vertical: true,
-    disable: false,
-  },
-  {
-    id: 1,
-    carX: 190,
-    carY: 155,
-    vertical: true,
-    disable: false,
-  },
-  {
-    id: 2,
-    carX: 255,
-    carY: 225,
-    vertical: false,
-    disable: false,
-  },
-  {
-    id: 3,
-    carX: 255,
-    carY: 282,
-    vertical: false,
-    disable: false,
-  },
-  {
-    id: 4,
-    carX: 255,
-    carY: 342,
-    vertical: false,
-    disable: false,
-  },
-  {
-    id: 5,
-    carX: 255,
-    carY: 412,
-    vertical: false,
-    disable: true,
-  },
-];
-
-const ParkingCanvas = ({ array }: ParkingData) => {
+const TestParkingCanvas = ({ array }: ParkingData) => {
   const parkingSlot = useRef<HTMLCanvasElement>(null);
   const [isParking, setIsParking] = useState<IsParking[]>();
 
@@ -81,7 +37,7 @@ const ParkingCanvas = ({ array }: ParkingData) => {
     const context = canvas?.getContext("2d");
 
     //초기 주차장 크기
-    const initialWidth = 397.5;
+    const initialWidth = 414;
     const initialHeight = 645;
 
     //비율 계산
@@ -102,13 +58,10 @@ const ParkingCanvas = ({ array }: ParkingData) => {
       context?.fillRect(0, 0, canvas?.width, canvas?.height);
 
       const parkingSlotImage = new Image();
-      parkingSlotImage.src = "/images/parking_slot.svg";
+      parkingSlotImage.src = "/images/testParkingSlot.svg";
 
       const carImage = new Image();
       carImage.src = "/images/car.svg";
-
-      const carVerticalImage = new Image();
-      carVerticalImage.src = "/images/car_vertical.svg";
 
       parkingSlotImage.onload = () => {
         context?.drawImage(
@@ -120,29 +73,22 @@ const ParkingCanvas = ({ array }: ParkingData) => {
         );
       };
 
+      //540 477 / 417 / 357 / 290 / 230 / 170 / 110 /
+
       carImage.onload = () => {
         isParking?.forEach((car) => {
           const transformedX = (car.carX / initialWidth) * canvas.width;
           const transformedY = (car.carY / initialHeight) * canvas.height;
           const transformedImageWidth = (46 / initialWidth) * canvas.width;
           const transformedImageHeight = (96 / initialHeight) * canvas.height;
-          if (car.vertical) {
-            context?.drawImage(
-              carVerticalImage,
-              transformedX,
-              transformedY,
-              transformedImageWidth,
-              transformedImageHeight
-            );
-          } else {
-            context?.drawImage(
-              carImage,
-              transformedX,
-              transformedY,
-              transformedImageHeight,
-              transformedImageWidth
-            );
-          }
+
+          context?.drawImage(
+            carImage,
+            transformedX,
+            transformedY,
+            transformedImageHeight,
+            transformedImageWidth
+          );
         });
       };
     };
@@ -162,4 +108,4 @@ const ParkingCanvas = ({ array }: ParkingData) => {
   return <canvas ref={parkingSlot} />;
 };
 
-export default ParkingCanvas;
+export default TestParkingCanvas;

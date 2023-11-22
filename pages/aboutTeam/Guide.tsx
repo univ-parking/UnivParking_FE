@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import GuideSlide from "./GuideSlide";
 import Image from "next/image";
+import Link from "next/link";
 
 const Guide = () => {
   return (
@@ -28,7 +29,9 @@ const Guide = () => {
         </GoalImage>
       </OurGoal>
       <GoToTest>
-        <p>시연하기 &gt;</p>
+        <Link href={"/parkingSlot"}>
+          <p>시연하기 &gt;</p>
+        </Link>
       </GoToTest>
     </GuideContainer>
   );
@@ -75,6 +78,7 @@ const GoToTest = styled.div`
 
   p {
     font-weight: 700;
+    cursor: pointer;
   }
 `;
 

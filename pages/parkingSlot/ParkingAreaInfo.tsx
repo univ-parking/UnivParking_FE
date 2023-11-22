@@ -31,7 +31,7 @@ const ParkingAreaInfo = ({
             <p>{disableCanParking}</p>
           </Count>
           <Count left={false}>
-            <p>{canParking}</p>
+            <p>{canParking - disableCanParking}</p>
           </Count>
         </CountArea>
       </AllParkingArea>
@@ -78,7 +78,7 @@ const CountArea = styled.div`
 
 const Count = styled.div`
   width: 50%;
-  height: 4.1vh;
+  height: 4.3vh;
   display: flex;
   justify-content: center;
   align-items: center;
