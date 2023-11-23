@@ -27,11 +27,11 @@ const ParkingAreaInfo = ({
         </Title>
 
         <CountArea>
-          <Count left={true}>
+          <Count>
             <p>{disableCanParking}</p>
           </Count>
-          <Count left={false}>
-            <p>{canParking - disableCanParking}</p>
+          <Count>
+            <p>{canParking && canParking - disableCanParking}</p>
           </Count>
         </CountArea>
       </AllParkingArea>
@@ -82,11 +82,9 @@ const Count = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${(props) => (props.left ? "#94c5ff" : "#92ed9b")};
-  ${(props) => (props.left ? "border-bottom-left-radius: 10px" : "none")};
-  ${(props) => (props.left ? "none" : "border-bottom-right-radius: 10px")};
-
-  border-right: ${(props) => (props.left ? "1px solid black" : "none")};
+  background-color: "#92ed9b";
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   p {
     font-size: 1.5rem;
     text-align: center;

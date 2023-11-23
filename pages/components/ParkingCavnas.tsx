@@ -90,16 +90,18 @@ const ParkingCanvas = ({ array }: ParkingData) => {
     const resizeCanvas = () => {
       const { clientWidth, clientHeight } = document.documentElement;
 
-      if (clientWidth / clientHeight > aspectRatio) {
+      if (clientWidth / clientHeight > aspectRatio && canvas) {
         canvas.width = clientHeight * aspectRatio;
         canvas.height = clientHeight;
-      } else {
+      } else if (canvas && clientWidth / clientHeight < aspectRatio) {
         canvas.width = clientWidth;
         canvas.height = clientWidth / aspectRatio;
       }
 
       //Cavas에 그리기
-      context?.fillRect(0, 0, canvas?.width, canvas?.height);
+      if (canvas) {
+        context?.fillRect(0, 0, canvas.width, canvas.height);
+      }
 
       const parkingSlotImage = new Image();
       parkingSlotImage.src = "/images/parking_slot.svg";
@@ -111,37 +113,41 @@ const ParkingCanvas = ({ array }: ParkingData) => {
       carVerticalImage.src = "/images/car_vertical.svg";
 
       parkingSlotImage.onload = () => {
-        context?.drawImage(
-          parkingSlotImage,
-          0,
-          0,
-          canvas?.width,
-          canvas?.height
-        );
+        if (canvas) {
+          context?.drawImage(
+            parkingSlotImage,
+            0,
+            0,
+            canvas.width,
+            canvas.height
+          );
+        }
       };
 
       carImage.onload = () => {
         isParking?.forEach((car) => {
-          const transformedX = (car.carX / initialWidth) * canvas.width;
-          const transformedY = (car.carY / initialHeight) * canvas.height;
-          const transformedImageWidth = (46 / initialWidth) * canvas.width;
-          const transformedImageHeight = (96 / initialHeight) * canvas.height;
-          if (car.vertical) {
-            context?.drawImage(
-              carVerticalImage,
-              transformedX,
-              transformedY,
-              transformedImageWidth,
-              transformedImageHeight
-            );
-          } else {
-            context?.drawImage(
-              carImage,
-              transformedX,
-              transformedY,
-              transformedImageHeight,
-              transformedImageWidth
-            );
+          if (canvas) {
+            const transformedX = (car.carX / initialWidth) * canvas.width;
+            const transformedY = (car.carY / initialHeight) * canvas.height;
+            const transformedImageWidth = (46 / initialWidth) * canvas.width;
+            const transformedImageHeight = (96 / initialHeight) * canvas.height;
+            if (car.vertical) {
+              context?.drawImage(
+                carVerticalImage,
+                transformedX,
+                transformedY,
+                transformedImageWidth,
+                transformedImageHeight
+              );
+            } else {
+              context?.drawImage(
+                carImage,
+                transformedX,
+                transformedY,
+                transformedImageHeight,
+                transformedImageWidth
+              );
+            }
           }
         });
       };

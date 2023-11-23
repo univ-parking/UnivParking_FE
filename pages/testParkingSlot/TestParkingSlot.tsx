@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import ParkingAreaInfo from "../parkingSlot/ParkingAreaInfo";
 import TestParkingCanvas from "../components/TestParkingCanvas";
 import { useQuery } from "react-query";
-import TestParkingCanvasBackup from "../components/TestParkingCanvasBackup";
 
 interface Detail {
   id: number;
