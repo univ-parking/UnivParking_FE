@@ -4,7 +4,8 @@ import axios from "axios";
 import Header from "../components/Header";
 import ParkingAreaInfo from "../parkingSlot/ParkingAreaInfo";
 import TestParkingCanvas from "../components/TestParkingCanvas";
-import isEqual from "lodash/isEqual";
+import { useQuery } from "react-query";
+import TestParkingCanvasBackup from "../components/TestParkingCanvasBackup";
 
 interface Detail {
   id: number;
@@ -31,13 +32,12 @@ const TestParkingSlot = () => {
 
   const fetchData = () => {
     axios
-      .get("http://univ-parking.xyz/api/v1/parking/1/?format=json")
+      .get("http://univ-parking.xyz/api/v1/parking/1?format=json")
       .then((response) => {
-        setParkingData(response.data.data);
-        setParkingDataArray(response.data.data.array);
+        console.log(response.data.data.array);
       })
-      .catch((error) => {
-        console.error(error);
+      .catch((e) => {
+        console.log(e);
       });
   };
 

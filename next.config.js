@@ -5,6 +5,14 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-}
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/:path*",
+  //       destination: "http://api.univ-parking.xyz/v1/:path*",
+  //     },
+  //   ];
+  // },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

@@ -17,6 +17,12 @@ interface IsParking {
 const TestParkingCanvas = ({ array }: ParkingData) => {
   const parkingSlot = useRef<HTMLCanvasElement>(null);
   const [isParking, setIsParking] = useState<IsParking[]>();
+  const initialWidth = 414;
+  const initialHeight = 645;
+
+  //im
+
+  //TODO 이미지 온로드 밖으로 빼기.
 
   useEffect(() => {
     let tmpArray: IsParking[] = [];
@@ -36,9 +42,13 @@ const TestParkingCanvas = ({ array }: ParkingData) => {
     const canvas = parkingSlot.current;
     const context = canvas?.getContext("2d");
 
+    const parkingSlotImage = new Image();
+    parkingSlotImage.src = "/images/testParkingSlot.svg";
+
+    const carImage = new Image();
+    carImage.src = "/images/car.svg";
+
     //초기 주차장 크기
-    const initialWidth = 414;
-    const initialHeight = 645;
 
     //비율 계산
     const aspectRatio = initialWidth / initialHeight;
@@ -59,12 +69,6 @@ const TestParkingCanvas = ({ array }: ParkingData) => {
 
       //Cavas에 그리기
       // context?.fillRect(0, 0, canvas?.width, canvas?.height);
-
-      const parkingSlotImage = new Image();
-      parkingSlotImage.src = "/images/testParkingSlot.svg";
-
-      const carImage = new Image();
-      carImage.src = "/images/car.svg";
 
       parkingSlotImage.onload = () => {
         context?.drawImage(
@@ -106,7 +110,7 @@ const TestParkingCanvas = ({ array }: ParkingData) => {
     return () => {
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, [parkingSlot, array]);
+  }, [isParking]);
 
   return <canvas ref={parkingSlot} />;
 };
