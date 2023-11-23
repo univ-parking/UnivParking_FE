@@ -21,23 +21,41 @@ interface Data {
 }
 
 const ParkingSlot = () => {
+  const initArray = [false, false, false, false, false, false];
   const [parkingData, setParkingData] = useState<Data>();
+  const [parkingDataArray, setParkingDataArray] =
+    useState<boolean[]>(initArray);
   const [canParking, setCanParking] = useState<number>();
   const [canDisableParking, setCanDisableParking] = useState<number>(1);
 
-  useEffect(() => {
+  const fetchData = () => {
     axios
       .get("http://univ-parking.xyz/api/v1/parking/2/?format=json")
       .then((response) => {
+        const newArray = response.data.data.array;
+        if (JSON.stringify(newArray) !== JSON.stringify(parkingDataArray)) {
+          console.log(`${newArray} 비교 ${parkingDataArray}`);
+          setParkingDataArray(response.data.data.array);
+        }
         setParkingData(response.data.data);
       })
-      .catch((e) => {
-        console.log(e);
+      .catch((error) => {
+        console.error(error);
       });
+  };
+
+  useEffect(() => {
+    // 초기 데이터 로딩
+    fetchData();
+
+    // 3초마다 데이터 갱신
+    const intervalId = setInterval(fetchData, 3000);
+
+    // 컴포넌트가 언마운트될 때 clearInterval을 호출하여 인터벌 정리
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
-    console.log(`제발 좀!! ${parkingData?.array}`);
     setCanParking(
       parkingData?.array.filter((item) => {
         return !item;
@@ -54,7 +72,7 @@ const ParkingSlot = () => {
   return (
     <ParkingSlotContainer>
       <HeaderContainer>
-        <Header title={"전산관 주차장"} prev={true} link={"/start"} />
+        <Header title={"전산관 주차장"} prev={true} link={"/parkingList"} />
         <ParkingAreaInfo
           count={parkingData?.count}
           disable={1}
@@ -64,7 +82,7 @@ const ParkingSlot = () => {
       </HeaderContainer>
 
       <SlotContainer>
-        <ParkingCanvas array={parkingData?.array} />
+        <ParkingCanvas array={parkingDataArray} />
       </SlotContainer>
     </ParkingSlotContainer>
   );

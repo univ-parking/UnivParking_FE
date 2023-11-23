@@ -54,8 +54,11 @@ const TestParkingCanvas = ({ array }: ParkingData) => {
         canvas.height = clientWidth / aspectRatio;
       }
 
+      // Canvas를 새로 그릴 때 기존의 내용을 지워줌
+      context?.clearRect(0, 0, canvas.width, canvas.height);
+
       //Cavas에 그리기
-      context?.fillRect(0, 0, canvas?.width, canvas?.height);
+      // context?.fillRect(0, 0, canvas?.width, canvas?.height);
 
       const parkingSlotImage = new Image();
       parkingSlotImage.src = "/images/testParkingSlot.svg";
